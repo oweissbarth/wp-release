@@ -99,6 +99,7 @@ def wp_release():
     logging.info("done.")
 
 
+
     #uploading
     logging.info("Connecting to server...")
     ssh = paramiko.SSHClient()
@@ -144,4 +145,4 @@ def zipdir(path, ziph):
         files = [f for f in files if not f[0] == '.' and not f[-1]=='~']
         dirs[:] = [d for d in dirs if not d[0] == '.']
         for file in files:
-            ziph.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), path))         
+            ziph.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), os.path.join(path, os.pardir)))          
