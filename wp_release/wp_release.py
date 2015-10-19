@@ -50,9 +50,9 @@ def wp_release():
       logging.error("Asset directory not found!")
       sys.exit(1)
 
-    asset_dir = os.path.normpath(sys.argv[1])
+    asset_dir = os.path.normpath(os.path.abspath(sys.argv[1]))
 
-    asset_name = os.path.basename(os.path.normpath(sys.argv[1]))
+    asset_name = os.path.basename(os.path.normpath(os.path.abspath(sys.argv[1])))
 
     logging.info("done.")
 
