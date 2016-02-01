@@ -6,7 +6,7 @@ import zipfile
 import tempfile
 import logging
 import paramiko
-import ConfigParser
+import configparser
 from scp import SCPClient
 
 def main():
@@ -17,7 +17,7 @@ def main():
 
 def check_config():
     global config
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
     home = os.path.expanduser("~")
     logging.info("Checking for configuration file at "+home) 
     if len(config.read(os.path.join(home, ".wp-release")))!=1:
@@ -124,14 +124,14 @@ def wp_release():
     if stdout.channel.recv_exit_status() != 0:
         logging.error("Error while moving archive on remote server")
         for line in stderr.readlines():
-            print line 
+            print(line) 
         sys.exit(1)
         
     (stdin, stdout, stderr) = ssh.exec_command("sed -i 's/.*\"version\": .*/\t\"version\": \""+asset_version+"\",/' "+REMOTE_DEST_DIR+asset_name+ ".json")
     if stdout.channel.recv_exit_status() != 0:
         logging.error("Error while updating version number")
         for line in stderr.readlines():
-            print line 
+            print(line) 
         sys.exit(1)
 
     #clean up
